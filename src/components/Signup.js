@@ -10,7 +10,6 @@ export default class Signup extends Component {
   onSubmit = event => {
     event.preventDefault();
     console.log(
-      "hello from onsubmit",
       this.state.username,
       this.state.password
     );

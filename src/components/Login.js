@@ -13,7 +13,6 @@ class Login extends Component {
   onSubmit = event => {
     event.preventDefault();
     console.log(
-      "hello from onsubmit",
       this.state.username,
       this.state.password
     );
@@ -21,7 +20,6 @@ class Login extends Component {
       .post(`${url}/login`)
       .send({ email: this.state.username, password: this.state.password })
       .then(result => {
-        console.log("result", result.body);
         this.props.login(result.body);
       })
 

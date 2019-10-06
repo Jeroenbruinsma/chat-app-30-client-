@@ -1,17 +1,26 @@
 import React, { Component } from 'react'
 import * as request from 'superagent'
 import {url} from '../constants'
+import {connect} from 'react-redux'
+import {login} from '../actions'
 
-export default class Signup extends Component {
+class Login extends Component {
     state= {
         username: "",
         password: ""
     }
+    
     onSubmit = (event) =>{
         event.preventDefault()
         console.log("hello from onsubmit", this.state.username, this.state.password);
-        request.post(`${url}/user`)
+        request.post(`${url}/login`)
             .send({email: this.state.username , password: this.state.password})
+            .then(result => {console.log("result",result.body)
+                this.props.login(result.body)
+            }
+            
+            )
+
             .catch(error => console.log("got an error",error)) 
     } 
     onChangeEmail = (event) => {
@@ -24,10 +33,8 @@ export default class Signup extends Component {
     render() {
         return (
             <div>
-                <h2>Make a new user account</h2>
                 <form onSubmit={this.onSubmit}>
-
-                    <input
+                <input
                     name="email"
                     type="text"
                     onChange={this.onChangeEmail}
@@ -40,12 +47,12 @@ export default class Signup extends Component {
                     type="text"
                     onChange={this.onChangePassword}
                     value={this.state.newMessage}
-                    placeholder="password"   >
+                    placeholder="passwords"   >
                         </input>
-
-                       <button type="Submit">Make new account</button>
+                        <button type="submit">login </button>
                 </form>
             </div>
         )
     }
 }
+export default connect(null,{login})(Login)

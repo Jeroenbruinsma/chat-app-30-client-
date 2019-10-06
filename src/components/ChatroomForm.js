@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import * as request from 'superagent'
 import {url} from '../constants'
+import {connect} from 'react-redux'
 
-export default class ChatroomForm extends Component {
+class ChatroomForm extends Component {
     
     state = {
         newMessage: "Type here....."
@@ -20,6 +21,10 @@ export default class ChatroomForm extends Component {
     }
     
     render() {
+        console.log('chatroomform',this.props);
+        
+        if(!this.props.login.jwt) return "please login"
+
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
@@ -35,3 +40,10 @@ export default class ChatroomForm extends Component {
         )
     }
 }
+function mapStateToProps(reduxState){
+    return (
+        {login: reduxState.login}
+    )
+}
+
+export default connect(mapStateToProps,null)(ChatroomForm)

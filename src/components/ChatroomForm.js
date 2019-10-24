@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 class ChatroomForm extends Component {
   state = {
-    newMessage: "Type here....."
+    newMessage: ""
   };
   onChange = event => {
     this.setState({ newMessage: event.target.value });
@@ -15,6 +15,7 @@ class ChatroomForm extends Component {
     console.log("form submited");
     request
       .post(`${url}/message`)
+      .set('Authorization', 'Bearer ' + this.props.login.jwt)
       .send({ message: this.state.newMessage })
       .catch(error => console.log("got an error", error));
   };
@@ -32,6 +33,7 @@ class ChatroomForm extends Component {
             type="text"
             onChange={this.onChange}
             value={this.state.newMessage}
+            placeholder="Type here"
           ></input>
           <button type="submit">Send!</button>
         </form>

@@ -15,7 +15,7 @@ export default class Signup extends Component {
     );
     request
       .post(`${url}/user`)
-      .send({ email: this.state.username, password: this.state.password })
+      .send({ email: this.state.username, password: this.state.password, password_confirmation: this.state.password, name: 'me' })
       .catch(error => console.log("got an error", error));
   };
   onChangeEmail = event => {
